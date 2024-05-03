@@ -1,6 +1,6 @@
 require('express-async-error')
 const express = require('express')
-const autoload = require('./middleware/')
+const autoload = require('./middleware/autoload')
 
 const app = express()
 

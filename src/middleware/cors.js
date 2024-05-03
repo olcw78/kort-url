@@ -7,5 +7,4 @@ module.exports = function useCors(app) {
       origin: '*',
     })
   )
-  req.log.debug(`[cors] loaded (${module.path})`)
 }
