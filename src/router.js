@@ -9,4 +9,9 @@ r.get('/', (req, res) => {
   res.render('index')
 })
 
+r.get('/ejs', (req, res) => {
+  const people = ['yoon', 'linda', 'jackie', 'ryan']
+  res.render('ejs', { people })
+})
+
 module.exports = r

@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=development node --inspect main.js | pino-pretty",
-    "dev:watch": "nodemon --exec 'NODE_ENV=development node --inspect main.js | pino-pretty'"
+    "dev:watch": "nodemon --exec 'NODE_ENV=development node --inspect main.js | pino-pretty'",
+    "tailwind": "postcss public/css/tailwind.css -o public/css/index.css"
   },
   "keywords": [],
   "author": "",
