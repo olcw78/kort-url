@@ -7,13 +7,24 @@ dotenv.config({
   debug: true,
 })
 
-const { PORT, REDIS_PORT, REDIS_HOST, REDIS_PASSWORD } = process.env
-
 module.exports = {
-  port: PORT || 8000,
+  port: process.env.PORT || 8000,
   redis: {
-    port: REDIS_PORT,
-    host: REDIS_HOST,
-    password: REDIS_PASSWORD,
+    port: process.env.REDIS_PORT,
+    host: process.env.REDIS_HOST,
+    password: process.env.REDIS_PASSWORD,
+  },
+  log: {
+    verbosity: process.env.LOG_VERBOSITY || 'info',
+  },
+  knex: {
+    dialect: process.env.KNEX_DIALECT || 'mysql2',
+  },
+  mysql: {
+    host: process.env.MYSQL_HOST || '127.0.0.1',
+    port: process.env.MYSQL_PORT || 3306,
+    user: process.env.MYSQL_USER || 'root',
+    password: process.env.MYSQL_PASSWORD || '0000',
+    database: process.env.MYSQL_DATABASE || 'local',
   },
 }
