@@ -5,12 +5,6 @@ module.exports = function providePinoHttp(app) {
   app.use(
     pinoHttp({
       autoLogging: true,
-      transport: 'pino-pretty',
-      hooks: {
-        logMethod(args, method, level) {
-          req.log.debug(`[pino-http] loaded (${module.path})`)
-        },
-      },
     })
   )
 }
