@@ -15,7 +15,6 @@ module.exports = function provideKnex(app) {
 
     res.locals.knex = $knex
 
-    req.log.debug(`[knex] loaded (${module.path})`)
     next()
   })
 }

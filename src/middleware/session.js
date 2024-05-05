@@ -5,11 +5,13 @@ const { makeRedisStore } = require('../external/redis')
 /** @param {import('express').Application} app */
 module.exports = function useRedisSession(app) {
   app.use(async (req, res, next) => {
-    const redisStore = await makeRedisStore(req.redis, {})
+    // const redisStore = await makeRedisStore(req.redis, {})
 
-    session({
-      store: redisStore,
-      saveUninitialized: true,
-    })
+    // session({
+    //   store: redisStore,
+    //   saveUninitialized: true,
+    // })
+    
+    next()
   })
 }
