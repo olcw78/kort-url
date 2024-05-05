@@ -1,3 +1,4 @@
+'use strict'
 // load dotenv
 const env = require('./src/env')
 const app = require('./src/app')

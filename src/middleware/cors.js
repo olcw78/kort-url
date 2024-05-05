@@ -1,3 +1,4 @@
+'use strict'
 const cors = require('cors')
 
 /** @param {import('express').Application} app */

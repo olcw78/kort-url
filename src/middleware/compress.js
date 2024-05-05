@@ -1,3 +1,4 @@
+'use strict'
 const compression = require('compression')
 
 /** @param {import('express').Application} app */

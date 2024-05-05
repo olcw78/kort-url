@@ -1,3 +1,4 @@
+'use strict'
 const { makeRedisClient } = require('../../external/redis')
 
 /** @param {import('express').Application} app */

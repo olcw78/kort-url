@@ -1,3 +1,4 @@
+'use strict'
 const { pinoHttp } = require('pino-http')
 
 /** @param {import('express').Application} app */
