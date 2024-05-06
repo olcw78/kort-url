@@ -3,9 +3,11 @@
 const env = require('./src/env')
 const app = require('./src/app')
 
-const listener = app.listen(env.port, function () {
-  const addr = listener.address()
-  const origin = `${addr.address}:${addr.port}`
+async function main() {
+  const listener = (await app).listen(env.port, function () {
+    const addr = listener.address()
+    console.log(`express listening at ${addr.port}`)
+  })
+}
 
-  console.log(`express listening at ${origin}`)
-})
+main()

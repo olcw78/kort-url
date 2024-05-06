@@ -1,24 +1,24 @@
 'use strict'
 
+// catch all async error while router, middleware
 require('express-async-error')
+
+const path = require('node:path')
+
 const express = require('express')
-const autoload = require('./middleware/autoload')
+const autoload = require('./util/autoload')
 const router = require('./router')
-const ejs = require('ejs')
-const LRU = require('lru-cache').default
-const app = express()
 
-// setup ejs
-// app.set('views', path.resolve(process.cwd(), 'views'))
-ejs.cache = new LRU({
-  ttl: 60 * 60 * 24 * 1000,
-  maxSize: 100,
-})
-app.engine('html', ejs.renderFile)
-app.set('view engine', 'ejs')
+async function startApp() {
+  const app = express()
 
-app.use(router)
+  const middlewareDirRootPath = path.resolve('src', 'middleware')
+  await autoload(app, middlewareDirRootPath)
 
-autoload(app)
+  app.use(router)
+  
+  return app
+}
 
-module.exports = app
+module.exports = startApp()
+

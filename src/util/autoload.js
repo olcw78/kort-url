@@ -3,10 +3,20 @@ const fs = require('node:fs/promises')
 const path = require('node:path')
 const { logger } = require('../logger')
 
-/** @param {import('express').Application} app */
-module.exports = async function autoload(app) {
-  const middlewaresPathAbs = path.resolve(__dirname)
-  const dirents = await fs.readdir(middlewaresPathAbs, {
+/**
+ * @param {import('express').Application} app
+ * @param {string} middlewareDirRootPath
+ */
+module.exports = async function autoload(app, middlewareDirRootPath) {
+  if (typeof middlewareDirRootPath !== 'string') {
+    throw new Error('middlewaresPath must be a string')
+  }
+
+  if (middlewareDirRootPath === '') {
+    throw new Error('middlewaresPath must not be an empty string')
+  }
+
+  const dirents = await fs.readdir(middlewareDirRootPath, {
     encoding: 'utf8',
     recursive: true,
     withFileTypes: true,
