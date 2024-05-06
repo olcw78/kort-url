@@ -9,21 +9,19 @@ function circularReferenceReplacer(seen) {
       return '[circular]'
     }
 
-    seen.set(v)
-
-    const $v = Array.isArray(v) ? [] : {}
-
-    for (const [k, _v] of Object.entries(v)) {
-      $v[k] = circularReferenceReplacer(seen)(k, _v)
-    }
-
-    seen.delete(v)
+    seen.add(v)
 
     return v
   }
 }
 
-module.exports = function safeStringify(obj, { indentation } = null) {
+/**
+ *
+ * @param {object} obj
+ * @param {{ indentation: number }} opt
+ * @returns
+ */
+module.exports = function safeStringify(obj, opt = null) {
   const seen = new WeakSet()
-  return JSON.stringify(obj, circularReferenceReplacer(seen), indentation)
+  return JSON.stringify(obj, circularReferenceReplacer(seen), opt?.indentation)
 }
