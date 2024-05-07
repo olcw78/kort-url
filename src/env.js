@@ -1,5 +1,6 @@
 'use strict'
 const path = require('node:path')
+const process = require('node:process')
 
 const dotenv = require('dotenv')
 dotenv.config({

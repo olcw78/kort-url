@@ -6,6 +6,7 @@ const { performance } = require('node:perf_hooks')
 require('express-async-error')
 
 const path = require('node:path')
+const process = require('node:process')
 
 const express = require('express')
 const autoload = require('./util/autoload')
@@ -21,7 +22,9 @@ module.exports = async function startApp() {
   app.use(router)
 
   process.nextTick(() => {
-    app.locals.log.info(`[startTime] ${(performance.now() - startTime).toPrecision(8)} ms`)
+    app.locals.log.info(
+      `[startTime] ${(performance.now() - startTime).toPrecision(8)} ms`,
+    )
   })
   return app
 }

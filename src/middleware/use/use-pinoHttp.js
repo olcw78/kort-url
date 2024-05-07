@@ -9,6 +9,6 @@ module.exports = function usePinoHttp(app) {
       transport: {
         target: app.get('env') === 'development' ? 'pino-pretty' : 'pino',
       },
-    })
+    }),
   )
 }

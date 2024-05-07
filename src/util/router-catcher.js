@@ -8,8 +8,6 @@ function copyFnProps(oldFn, newFn) {
   for (const k of Object.keys(oldFn)) {
     newFn[k] = oldFn[k]
   }
-  
-  Object.keys(oldFn).forEach(k => {})
 
   return newFn
 }
@@ -22,7 +20,7 @@ function wrap(fn) {
       (args.length === 5 ? args[2] : last(args)) || Function.prototype
 
     if (ret && ret['catch']) {
-      ret['catch']((err) => next(err))
+      ret['catch'](err => next(err))
     }
 
     return ret

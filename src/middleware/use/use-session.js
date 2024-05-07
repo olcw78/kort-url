@@ -1,6 +1,6 @@
 'use strict'
-const session = require('express-session')
-const { makeRedisStore } = require('../../external/redis')
+// const session = require('express-session')
+// const { makeRedisStore } = require('../../external/redis')
 
 /** @param {import('express').Application} app */
 module.exports = function useRedisSession(app) {
@@ -11,7 +11,7 @@ module.exports = function useRedisSession(app) {
     //   store: redisStore,
     //   saveUninitialized: true,
     // })
-    
+
     next()
   })
 }

@@ -1,5 +1,5 @@
 'use strict'
-const { expect } = require('@jest/globals')
+const { describe, it, expect } = require('@jest/globals')
 const freezeRecursive = require('../../src/util/freeze')
 
 describe('freeze', () => {

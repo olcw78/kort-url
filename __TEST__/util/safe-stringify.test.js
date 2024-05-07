@@ -1,4 +1,5 @@
 const safeStringify = require('../../src/util/safe-stringify')
+const { describe, it, expect } = require('@jest/globals')
 
 describe('safe-stringify', () => {
   it('should replace safely circular references with "[circular]"', () => {
