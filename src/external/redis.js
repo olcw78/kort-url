@@ -5,7 +5,7 @@ const RedisStore = require('connect-redis').default
 async function makeRedisClient(opt) {
   const redisClient = redis.createClient({ ...opt })
 
-  return await redisClient.connect()
+  return redisClient.connect()
 }
 
 /**

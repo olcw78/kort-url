@@ -4,14 +4,11 @@ import { RedisClientType } from 'redis'
 
 declare global {
   namespace Express {
-    export interface Request {
+    export interface Locals {
       log: pino.BaseLogger
       redis: RedisClientType
-      reqTime: ReturnType<import('perf_hooks').Performance['now']>
-    }
-
-    export interface Locals {
       knex: Knex
+      reqTime: ReturnType<import('perf_hooks').Performance['now']>
     }
   }
 }

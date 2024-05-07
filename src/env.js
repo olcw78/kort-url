@@ -5,6 +5,7 @@ const dotenv = require('dotenv')
 dotenv.config({
   path: path.resolve(process.cwd(), '.env.local'),
   debug: true,
+  encoding: 'utf8',
 })
 
 module.exports = {

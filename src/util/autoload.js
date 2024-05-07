@@ -1,7 +1,6 @@
 'use strict'
 const fs = require('node:fs/promises')
 const path = require('node:path')
-const { logger } = require('../logger')
 
 /**
  * @param {import('express').Application} app
@@ -60,11 +59,10 @@ module.exports = async function autoload(app, middlewareDirRootPath) {
   }
 
   if (useAutoloadLog) {
-    logger.info(
+    app.locals.log.info(
       `[middlewares] Loading ${autoloadLogStr.length} middlewares:\n` +
         autoloadLogStr.reduce((p, c) => p + ', ' + c)
     )
+    autoloadLogStr = []
   }
-
-  autoloadLogStr = []
 }

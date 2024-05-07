@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development node --inspect main.js | pino-pretty",
-    "dev:watch": "nodemon --exec 'NODE_ENV=development node --inspect main.js | pino-pretty'",
+    "start": "NODE_ENV=development node main.js",
+    "dev:watch": "nodemon --exec 'NODE_ENV=development node --inspect main.js",
     "tailwind": "postcss public/css/tailwind.css -o public/css/index.css",
     "test": "jest"
   },
-  "keywords": [],
+  "keywords": [ ],
   "author": "yoonsang lee",
   "license": "ISC",
   "description": "",
