@@ -1,30 +1,23 @@
 'use strict'
-
-const { performance } = require('node:perf_hooks')
-
 // catch all async error while router, middleware
 require('express-async-error')
 
-const path = require('node:path')
-const process = require('node:process')
-
+const { performance } = require('node:perf_hooks')
 const express = require('express')
-const autoload = require('./util/autoload')
+const provide = require('./middleware/provide')
+const use = require('./middleware/use')
 const router = require('./router')
 
-module.exports = async function startApp() {
+module.exports = function startApp() {
   const startTime = performance.now()
   const app = express()
 
-  const middlewareDirRootPath = path.resolve('src', 'middleware')
-  await autoload(app, middlewareDirRootPath)
-
+  provide(app)
+  use(app)
   app.use(router)
 
-  process.nextTick(() => {
-    app.locals.log.info(
-      `[startTime] ${(performance.now() - startTime).toPrecision(8)} ms`,
-    )
-  })
+  app.locals.log.info(
+    `[startTime] ${(performance.now() - startTime).toPrecision(8)} ms`
+  )
   return app
 }

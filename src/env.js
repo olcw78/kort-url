@@ -19,10 +19,8 @@ module.exports = {
   log: {
     verbosity: process.env.LOG_VERBOSITY || 'info',
   },
-  knex: {
-    dialect: process.env.KNEX_DIALECT || 'mysql2',
-  },
-  mysql: {
+  client: process.env.KNEX_CLIENT || 'mysql2',
+  connection: {
     host: process.env.MYSQL_HOST || '127.0.0.1',
     port: process.env.MYSQL_PORT || 3306,
     user: process.env.MYSQL_USER || 'root',
