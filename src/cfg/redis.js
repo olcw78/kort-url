@@ -11,10 +11,11 @@ async function makeRedisClient(opt) {
 
 /**
  *
- * @param {} opt
+ * @param {redis.RedisClientType} client
+ * @param {redis.RedisClientOptions} opt
  * @returns
  */
-async function makeRedisStore(client, opt) {
+function makeRedisStore(client, opt) {
   const redisStore = new RedisStore({ client, ...opt })
 
   return redisStore

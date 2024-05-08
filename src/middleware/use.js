@@ -1,5 +1,7 @@
 'use strict'
 
+const { makeRedisStore } = require('../cfg/redis')
+const session = require('express-session')
 const express = require('express')
 const compression = require('compression')
 const { pinoHttp } = require('pino-http')
@@ -23,13 +25,12 @@ module.exports = function (app) {
   app.set('view engine', 'ejs')
 
   // use session with redis
-  app.use(async (req, res, next) => {
-    // const redisStore = await makeRedisStore(req.redis, {})
-
-    // session({
-    //   store: redisStore,
-    //   saveUninitialized: true,
-    // })
+  app.use((req, res, next) => {
+    session({
+      store: makeRedisStore(app.locals.redis, {}),
+      saveUninitialized: false,
+      resave: false,
+    })
     next()
   })
 
