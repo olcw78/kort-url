@@ -16,6 +16,7 @@ module.exports = {
     host: process.env.REDIS_HOST,
     password: process.env.REDIS_PASSWORD,
   },
+  ttl: process.env.TTL || 60 * 60 * 24, // a day
   log: {
     verbosity: process.env.LOG_VERBOSITY || 'info',
   },
@@ -25,6 +26,6 @@ module.exports = {
     port: process.env.MYSQL_PORT || 3306,
     user: process.env.MYSQL_USER || 'root',
     password: process.env.MYSQL_PASSWORD || '0000',
-    database: process.env.MYSQL_DATABASE || 'local',
+    database: process.env.MYSQL_DATABASE || 'mydb',
   },
 }
