@@ -1,7 +1,6 @@
 'use strict'
 
-import env from './env'
-
+const env = require('./env')
 const { Router } = require('express')
 
 const r = Router({
@@ -24,8 +23,7 @@ r.get('/shortify', async (req, res) => {
   try {
     const cachedUrl = await redis.GET(cacheKey)
 
-    await knex().transacting()
-    await knex().select('*').from('urls').where('userId', )
+    await knex().select('*').from('urls').where('userId')
     if (!cachedUrl) {
       await redis.SETEX(cacheKey, url, env.ttl)
     }
