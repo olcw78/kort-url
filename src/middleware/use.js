@@ -8,8 +8,6 @@ const { pinoHttp } = require('pino-http')
 const responseTime = require('response-time')
 const ejs = require('ejs')
 const LRU = require('lru-cache').default
-// const session = require('express-session')
-// const { makeRedisStore } = require('../../external/redis')
 
 /** @param {import('express').Application} app */
 module.exports = function (app) {

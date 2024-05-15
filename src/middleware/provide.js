@@ -1,18 +1,40 @@
 'use strict'
 
-const makeKnex = require('../cfg/knex')
-const makePino = require('../cfg/pino')
-const { makeRedisClient } = require('../cfg/redis')
+const pino = require('pino')
+const knex = require("knex")
+const redis = require('redis')
+const env = require('../env')
 
 /** @param {import('express').Application} app */
 module.exports = async function provide(app) {
-  // provide knex with mysql2
-  app.locals.knex ??= makeKnex()
-
   // provide pino
-  const isDevenv = app.get('env')
-  app.locals.log ??= makePino(isDevenv)
+  const logger = pino({
+    ...(app.get('env') === 'development' && {
+      transport: {
+        target: 'pino-pretty',
+      }
+    }),
+  })
+  app.locals.log ??= logger
+
+  // provide knex with mysql2
+  app.locals.knex ??= knex({
+    client: env.client,
+    connection: env.connection,
+    debug: true,
+    asyncStackTraces: true,
+    log: {
+      enableColors: true,
+      debug(msg) { logger.debug(msg)},
+      warn(msg) { logger.warn(msg) },
+      error(msg) { logger.error(msg) },
+    }
+  })
 
   // provide redis
-  app.locals.redis ??= await makeRedisClient()
+  const redisClient = new redis.createClient({
+    url: env.redis.url,
+  })
+  await redisClient.connect()
+  app.locals.redis ??= redisClient
 }
