@@ -1,9 +1,13 @@
 const { describe, it, expect, beforeAll, afterAll } = require('@jest/globals')
-const { makeShortenUrl, makeUrlOriginal } = require('../src/url')
+const UrlShortener = require('../src/url')
 const redis = require('redis')
 const env = require('../src/env')
 
+/** @type {ReturnType<typeof redis.createClient>} */
 let redisClient
+
+/** @type {UrlShortener} */
+let urlShortener
 
 describe('url test', () => {
   beforeAll(async () => {
@@ -11,6 +15,8 @@ describe('url test', () => {
       url: env.redis.url,
     })
     await redisClient.connect()
+
+    urlShortener = new UrlShortener(env.origin, redisClient)
   })
 
   afterAll(async () => {
@@ -19,9 +25,10 @@ describe('url test', () => {
 
   it('should shortened url matched the original url', async () => {
     const url = 'https://www.npmjs.com/package/redis-mock'
-    let result = makeShortenUrl(redisClient, url)
-    result = await makeUrlOriginal(redisClient, result)
 
-    expect(result).toBe(url)
+    let res = urlShortener.makeShortenedUrl(url)
+    res = await urlShortener.makeOriginalUrl(res)
+
+    expect(res).toBe(url)
   })
 })

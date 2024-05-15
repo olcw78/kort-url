@@ -20,6 +20,7 @@ module.exports = {
   log: {
     verbosity: process.env.LOG_VERBOSITY || 'info',
   },
+  origin: process.env.ORIGIN || 'http://kort.url/',
   client: process.env.KNEX_CLIENT || 'mysql2',
   connection: {
     host: process.env.MYSQL_HOST || '127.0.0.1',
