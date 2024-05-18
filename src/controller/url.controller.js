@@ -44,10 +44,10 @@ async function redirectToOriginalUrl(req, res) {
     // 1. shortened_url 이 cache 되어있는지 확인
     const cachedUrl = await redis.GET(shortened_url)
     if (cachedUrl && typeof cachedUrl === 'string') {
-      res
-        .status(StatusCodes.MOVED_PERMANENTLY)
-        .json({ original_url: cachedUrl })
-      // res.status(StatusCodes.MOVED_PERMANENTLY).redirect(cachedUrl)
+      // res
+      //   .status(StatusCodes.MOVED_PERMANENTLY)
+      //   .json({ original_url: cachedUrl })
+      res.status(StatusCodes.MOVED_PERMANENTLY).redirect(cachedUrl)
       return
     }
 
@@ -64,10 +64,10 @@ async function redirectToOriginalUrl(req, res) {
       await knex('urls').insert({ url: original_url })
     }
 
-    // res.status(StatusCodes.MOVED_PERMANENTLY).redirect(shortenedUrl)
-    res
-      .status(StatusCodes.MOVED_PERMANENTLY)
-      .json({ original_url: original_url })
+    res.status(StatusCodes.MOVED_PERMANENTLY).redirect(original_url)
+    // res
+    //   .status(StatusCodes.MOVED_PERMANENTLY)
+    //   .json({ original_url })
   } catch (error) {
     log.error(error)
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error })
