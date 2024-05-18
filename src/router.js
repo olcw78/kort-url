@@ -1,7 +1,8 @@
 'use strict'
 
-const env = require('./env')
 const { Router } = require('express')
+
+const UrlController = require('./controller/url.controller')
 
 const r = Router({
   strict: true,
@@ -16,22 +17,8 @@ r.get('/ejs', (req, res) => {
   res.render('ejs', { people })
 })
 
-r.get('/shortify', async (req, res) => {
-  const { url } = req.body
-  const { redis, knex } = req.app.locals
-  const cacheKey = `shortify:${url}`
-  try {
-    const cachedUrl = await redis.GET(cacheKey)
+r.get('/v1/get', UrlController.redirectToOriginalUrl)
 
-    await knex().select('*').from('urls').where('userId')
-    if (!cachedUrl) {
-      await redis.SETEX(cacheKey, url, env.ttl)
-    }
-
-    res.status(200).json({ message: 'OK', url: '' })
-  } catch (error) {
-    res.status(500).json({ error })
-  }
-})
+r.post('/v1/create', UrlController.createShortenedUrl)
 
 module.exports = r

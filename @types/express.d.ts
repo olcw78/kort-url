@@ -1,6 +1,7 @@
 import { Knex } from 'knex'
 import pino from 'pino'
 import { RedisClientType } from 'redis'
+import UrlShortener from '../src/url'
 
 declare global {
   namespace Express {
@@ -9,6 +10,7 @@ declare global {
       redis: RedisClientType
       knex: Knex
       reqTime: ReturnType<import('perf_hooks').Performance['now']>
+      urlShortener: UrlShortener
     }
   }
 }
