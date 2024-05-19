@@ -1,5 +1,5 @@
 const { describe, it, expect, beforeAll, afterAll } = require('@jest/globals')
-const UrlShortener = require('../src/url')
+const UrlShortener = require('../src/service/url-shortener.service')
 const redis = require('redis')
 const env = require('../src/env')
 

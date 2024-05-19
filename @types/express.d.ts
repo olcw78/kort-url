@@ -1,7 +1,7 @@
 import { Knex } from 'knex'
 import pino from 'pino'
 import { RedisClientType } from 'redis'
-import UrlShortener from '../src/url'
+import UrlShortener from '../src/service/url-shortener.service'
 
 declare global {
   namespace Express {

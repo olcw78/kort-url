@@ -5,7 +5,7 @@ const knex = require('knex')
 const redis = require('redis')
 const env = require('../env')
 
-const UrlShortener = require('../url')
+const UrlShortener = require('../service/url-shortener.service')
 
 /** @param {import('express').Application} app */
 module.exports = async function provide(app) {

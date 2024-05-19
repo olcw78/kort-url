@@ -1,4 +1,4 @@
-const { k } = require('./const')
+const { k } = require('../const')
 
 /** @class */
 class UrlShortener {
