@@ -10,7 +10,7 @@ dotenv.config({
 })
 
 module.exports = {
-  port: process.env.PORT || 8000,
+  port: process.env.PORT || 3000,
   redis: {
     port: process.env.REDIS_PORT,
     host: process.env.REDIS_HOST,
@@ -20,12 +20,13 @@ module.exports = {
   log: {
     verbosity: process.env.LOG_VERBOSITY || 'info',
   },
+  origin: process.env.ORIGIN || 'http://kort.url/',
   client: process.env.KNEX_CLIENT || 'mysql2',
   connection: {
-    host: process.env.MYSQL_HOST || '127.0.0.1',
+    // host: process.env.MYSQL_HOST || '127.0.0.1',
     port: process.env.MYSQL_PORT || 3306,
     user: process.env.MYSQL_USER || 'root',
     password: process.env.MYSQL_PASSWORD || '0000',
-    database: process.env.MYSQL_DATABASE || 'mydb',
+    database: process.env.MYSQL_DATABASE || 'local',
   },
 }

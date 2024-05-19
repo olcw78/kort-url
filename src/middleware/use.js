@@ -1,7 +1,6 @@
 'use strict'
 
-const { makeRedisStore } = require('../cfg/redis')
-const session = require('express-session')
+// const session = require('express-session')
 const express = require('express')
 const compression = require('compression')
 const { pinoHttp } = require('pino-http')
@@ -11,6 +10,9 @@ const LRU = require('lru-cache').default
 
 /** @param {import('express').Application} app */
 module.exports = function (app) {
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: true }))
+
   // use static
   app.use(express.static('public'))
 
@@ -23,14 +25,14 @@ module.exports = function (app) {
   app.set('view engine', 'ejs')
 
   // use session with redis
-  app.use((req, res, next) => {
-    session({
-      store: makeRedisStore(app.locals.redis, {}),
-      saveUninitialized: false,
-      resave: false,
-    })
-    next()
-  })
+  // app.use((req, res, next) => {
+  //   session({
+  //     store: makeRedisStore(app.locals.redis, {}),
+  //     saveUninitialized: false,
+  //     resave: false,
+  //   })
+  //   next()
+  // })
 
   // use response time
   app.use(responseTime())

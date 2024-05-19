@@ -1,9 +1,11 @@
 'use strict'
 
 const pino = require('pino')
-const knex = require("knex")
+const knex = require('knex')
 const redis = require('redis')
 const env = require('../env')
+
+const UrlShortener = require('../service/url-shortener.service')
 
 /** @param {import('express').Application} app */
 module.exports = async function provide(app) {
@@ -12,7 +14,7 @@ module.exports = async function provide(app) {
     ...(app.get('env') === 'development' && {
       transport: {
         target: 'pino-pretty',
-      }
+      },
     }),
   })
   app.locals.log ??= logger
@@ -25,10 +27,16 @@ module.exports = async function provide(app) {
     asyncStackTraces: true,
     log: {
       enableColors: true,
-      debug(msg) { logger.debug(msg)},
-      warn(msg) { logger.warn(msg) },
-      error(msg) { logger.error(msg) },
-    }
+      debug(msg) {
+        logger.debug(msg)
+      },
+      warn(msg) {
+        logger.warn(msg)
+      },
+      error(msg) {
+        logger.error(msg)
+      },
+    },
   })
 
   // provide redis
@@ -37,4 +45,7 @@ module.exports = async function provide(app) {
   })
   await redisClient.connect()
   app.locals.redis ??= redisClient
+
+  // provide urlShortener
+  app.locals.urlShortener = new UrlShortener(env.origin, redisClient)
 }
